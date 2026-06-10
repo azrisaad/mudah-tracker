@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utara Team — AFZ Azri</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0f;color:#e0e0e0;padding:20px;max-width:1100px;margin:auto}
+
+h1{font-size:24px;font-weight:700;background:linear-gradient(135deg,#00d4ff,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.sub{color:#888;font-size:13px;margin-bottom:24px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.card{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e}
+.card .lbl{font-size:11px;text-transform:uppercase;color:#666;letter-spacing:1px}
+.card .val{font-size:28px;font-weight:700;margin-top:4px}
+.card .sval{font-size:12px;color:#888;margin-top:2px}
+.cyan{color:#00d4ff}
+.orange{color:#ff6b35}
+.green{color:#00e676}
+.red{color:#ff5252}
+
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:700px){.team-grid{grid-template-columns:1fr}}
+
+.team-card{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e}
+.team-card h3{font-size:14px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #1e1e2e}
+
+.ar{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #0f0f1a}
+.ar:last-child{border-bottom:none}
+.an{font-size:13px;font-weight:500}
+.ac{font-size:15px;font-weight:700}
+.tag{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:6px}
+.tg1{background:#00d4ff22;color:#00d4ff}
+.tg2{background:#ff6b3522;color:#ff6b35}
+.tg3{background:#ffc10722;color:#ffc107}
+
+.pwrap{background:#1e1e2e;border-radius:20px;height:28px;overflow:hidden;margin:12px 0;position:relative}
+.pbar{height:100%;border-radius:20px;background:linear-gradient(90deg,#00d4ff,#ff6b35);transition:width .5s ease}
+.plbl{position:absolute;top:0;left:0;right:0;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+
+.bwrap{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e;margin-bottom:24px}
+.bwrap h3{font-size:14px;margin-bottom:12px}
+
+.state-badge{display:inline-block;font-size:9px;padding:1px 5px;border-radius:3px;margin-left:4px;background:#1e1e2e;color:#888}
+
+.h2h{display:flex;align-items:flex-end;gap:8px;height:200px;padding:8px 0 24px}
+.h2h-bar{flex:1;border-radius:6px 6px 0 0;position:relative;min-height:4px;transition:height .5s ease}
+.h2h-bar .hlbl{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:11px;color:#aaa;white-space:nowrap}
+.h2h-bar .hval{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:700;color:#fff}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+@media(max-width:600px){.g2{grid-template-columns:1fr}}
+
+.acard{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e}
+.acard h3{font-size:14px;margin-bottom:8px}
+.al{list-style:none;font-size:12px;color:#aaa}
+.al li{padding:4px 0 4px 16px;position:relative}
+.al li::before{content:'›';position:absolute;left:0;color:#ff6b35;font-weight:700}
+
+.donut-wrap{position:relative;width:200px;height:200px;margin:0 auto}
+.donut-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-center .dcv{font-size:24px;font-weight:700}
+.donut-center .dcl{font-size:10px;color:#888}
+.donut-legend{display:flex;justify-content:center;gap:20px;margin-top:12px;font-size:12px;flex-wrap:wrap}
+.dl-item{display:flex;align-items:center;gap:6px}
+.dl-dot{width:10px;height:10px;border-radius:50%}
+
+.footer{text-align:center;font-size:11px;color:#444;padding:20px 0}
+</style>
+</head>
+<body>
+
+<h1>🏆 Utara Team Dashboard</h1>
+<div class="sub">AFZ Realty — Team Azri • Perak / Penang / Kedah</div>
+
+<div class="cards">
+  <div class="card">
+    <div class="lbl">Team Azri Utara</div>
+    <div class="val cyan" id="tUtara">0</div>
+    <div class="sval"><span id="tCount">0</span> agent</div>
+  </div>
+  <div class="card">
+    <div class="lbl">Mustafa MS Progress</div>
+    <div class="val green" id="tProg">0%</div>
+    <div class="sval"><span id="tMustafa">0</span> / 160 target 🎯</div>
+  </div>
+  <div class="card">
+    <div class="lbl">Top Performer</div>
+    <div class="val orange" id="tTop">-</div>
+    <div class="sval" id="tTopName">-</div>
+  </div>
+  <div class="card">
+    <div class="lbl">Total Iklan Team</div>
+    <div class="val" id="tTotal" style="color:#ffc107">0</div>
+    <div class="sval">Azri Utara</div>
+  </div>
+</div>
+
+<div class="pwrap">
+  <div class="pbar" id="progBar" style="width:0%"></div>
+  <div class="plbl" id="progLbl">Mustafa: 0 → 160 🎯</div>
+</div>
+
+<div class="team-grid">
+  <div class="team-card">
+    <h3>🚀 Team Azri (Utara)</h3>
+    <div id="azriList"></div>
+  </div>
+  <div class="team-card">
+    <h3>📊 Negeri Breakdown</h3>
+    <div id="stateBreakdown"></div>
+  </div>
+</div>
+
+<div class="bwrap">
+  <h3>📊 Team Azri Utara — Iklan</h3>
+  <div class="h2h" id="h2h"></div>
+</div>
+
+<div class="bwrap">
+  <h3>📈 Negeri Share</h3>
+  <div class="donut-wrap" id="donutWrap">
+    <svg id="donutSvg" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#1e1e2e" stroke-width="12"/>
+      <circle id="dA" cx="50" cy="50" r="40" fill="none" stroke="#00d4ff" stroke-width="12" stroke-dasharray="0 251.2" stroke-linecap="butt"/>
+      <circle id="dB" cx="50" cy="50" r="40" fill="none" stroke="#ff6b35" stroke-width="12" stroke-dasharray="0 251.2" stroke-linecap="butt"/>
+      <circle id="dC" cx="50" cy="50" r="40" fill="none" stroke="#ffc107" stroke-width="12" stroke-dasharray="0 251.2" stroke-linecap="butt"/>
+    </svg>
+    <div class="donut-center">
+      <div class="dcv" id="donutTotal">0</div>
+      <div class="dcl">total iklan</div>
+    </div>
+  </div>
+  <div class="donut-legend" id="donutLegend"></div>
+</div>
+
+<div class="g2">
+  <div class="acard">
+    <h3>🎯 Target Mustafa MS</h3>
+    <ul class="al">
+      <li>81 → 160 iklan (+79) — RM10k komisen ✅</li>
+      <li>4-6 deal/bln → income stabil</li>
+      <li>Claim komisen tinggi setiap bulan</li>
+      <li>Kedah ranking #10 → target top 5</li>
+    </ul>
+  </div>
+  <div class="acard">
+    <h3>📈 Agent List</h3>
+    <ul class="al" id="agentNotes">
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  AFZ Realty — Team Azri Utara • Data terkini: <span id="lastUpd">-</span>
+</div>
+
+<script>
+(function(){
+  // ===== DATA =====
+  var agents = [
+    {name:'Mustafa MS', val:81, state:'Kedah', tag:'TL'},
+    {name:'Atikah', val:33, state:'Penang', tag:'⭐'},
+    {name:'Adawiyah Ishak', val:16, state:'Penang'},
+    {name:'Nurul Aida', val:35, state:'Penang'},
+    {name:'Cik Embun (Elyani)', val:16, state:'Kedah'}
+  ];
+  var TARGET = 160;
+
+  function render() {
+    var total = 0;
+    for(var i=0;i<agents.length;i++) total += agents[i].val;
+
+    var mustafa = agents[0].val;
+    var pct = Math.min(100, Math.round(mustafa / TARGET * 100));
+
+    document.getElementById('tUtara').textContent = total;
+    document.getElementById('tCount').textContent = agents.length;
+    document.getElementById('tProg').textContent = pct + '%';
+    document.getElementById('tMustafa').textContent = mustafa;
+    document.getElementById('tTotal').textContent = total;
+
+    // Top performer
+    var sorted = agents.slice().sort(function(a,b){return b.val-a.val});
+    document.getElementById('tTop').textContent = sorted[0].val;
+    document.getElementById('tTopName').textContent = sorted[0].name + ' (' + sorted[0].state + ')';
+
+    // Progress bar
+    document.getElementById('progBar').style.width = pct + '%';
+    document.getElementById('progLbl').textContent = 'Mustafa: ' + mustafa + ' → ' + TARGET + ' 🎯';
+
+    // Team list
+    var html = '';
+    for(var i=0;i<agents.length;i++) {
+      var t = agents[i].tag ? ' <span class="tag tg1">' + agents[i].tag + '</span>' : '';
+      var s = ' <span class="state-badge">' + agents[i].state + '</span>';
+      html += '<div class="ar"><span><span class="an">' + agents[i].name + '</span>' + t + s + '</span><span class="ac cyan">' + agents[i].val + '</span></div>';
+    }
+    document.getElementById('azriList').innerHTML = html;
+
+    // State breakdown
+    var states = {};
+    for(var i=0;i<agents.length;i++) {
+      var s = agents[i].state;
+      if(!states[s]) states[s] = {count:0, agents:0};
+      states[s].count += agents[i].val;
+      states[s].agents += 1;
+    }
+    var sHtml = '';
+    var sKeys = Object.keys(states).sort(function(a,b){return states[b].count - states[a].count});
+    for(var i=0;i<sKeys.length;i++) {
+      var s = sKeys[i];
+      var pctState = Math.round(states[s].count / total * 100);
+      sHtml += '<div class="ar"><span><span class="an">' + s + '</span> <span style="font-size:11px;color:#666">(' + states[s].agents + ' agent)</span></span><span class="ac">' + states[s].count + ' <span style="font-size:11px;color:#666">' + pctState + '%</span></span></div>';
+    }
+    document.getElementById('stateBreakdown').innerHTML = sHtml;
+
+    // H2H bar chart
+    var sortedBars = agents.slice().sort(function(a,b){return b.val-a.val});
+    var maxVal = Math.max.apply(null, sortedBars.map(function(a){return a.val}));
+    maxVal = Math.max(maxVal, 10);
+    var bHtml = '';
+    var colors = ['#00d4ff','#ff6b35','#ffc107','#00e676','#e040fb'];
+    for(var i=0;i<sortedBars.length;i++) {
+      var h = Math.max(4, Math.round(sortedBars[i].val / maxVal * 168));
+      var c = colors[i % colors.length];
+      bHtml += '<div class="h2h-bar" style="height:' + h + 'px;background:linear-gradient(180deg,' + c + ',' + c + '88)">';
+      bHtml += '<div class="hval">' + sortedBars[i].val + '</div>';
+      bHtml += '<div class="hlbl">' + sortedBars[i].name.split(' ')[0] + '</div></div>';
+    }
+    document.getElementById('h2h').innerHTML = bHtml;
+
+    // Donut - state share
+    var sKeys2 = Object.keys(states).sort(function(a,b){return states[b].count - states[a].count});
+    var circ = 2 * Math.PI * 40;
+    var donutColors = ['#00d4ff','#ff6b35','#ffc107'];
+    var offset = 0;
+    for(var i=0;i<Math.min(sKeys2.length,3);i++) {
+      var s = sKeys2[i];
+      var share = states[s].count / total;
+      var len = Math.round(share * circ);
+      var el = document.getElementById(i === 0 ? 'dA' : i === 1 ? 'dB' : 'dC');
+      el.setAttribute('stroke', donutColors[i]);
+      el.setAttribute('stroke-dasharray', len + ' ' + circ);
+      el.setAttribute('transform', 'rotate(' + (offset * 360) + ' 50 50)');
+      offset += share;
+    }
+    document.getElementById('donutTotal').textContent = total;
+
+    var legHtml = '';
+    for(var i=0;i<Math.min(sKeys2.length,3);i++) {
+      var s = sKeys2[i];
+      legHtml += '<div class="dl-item"><div class="dl-dot" style="background:' + donutColors[i] + '"></div> ' + s + ' <span style="color:' + donutColors[i] + ';font-weight:700">' + states[s].count + '</span></div>';
+    }
+    document.getElementById('donutLegend').innerHTML = legHtml;
+
+    // Agent notes
+    var notes = [
+      'Mustafa: RM10k komisen bln lepas ✅ — target 160 iklan',
+      'Atikah: coaching personal Azri — baru 10 hari 🆕',
+      'Adawiyah: REN 45103 (tag Azri) — 16 iklan',
+      'Nurul Aida: 35 iklan — firm e 10553',
+      'Cik Embun (Elyani): private account — 16 iklan'
+    ];
+    var nHtml = '';
+    for(var i=0;i<notes.length;i++) {
+      nHtml += '<li>' + notes[i] + '</li>';
+    }
+    document.getElementById('agentNotes').innerHTML = nHtml;
+
+    document.getElementById('lastUpd').textContent = new Date().toLocaleDateString('ms-MY',{day:'numeric',month:'short',year:'numeric'});
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

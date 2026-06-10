@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuantan Team — AFZ Azri</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0f;color:#e0e0e0;padding:20px;max-width:1100px;margin:auto}
+
+h1{font-size:24px;font-weight:700;background:linear-gradient(135deg,#00d4ff,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.sub{color:#888;font-size:13px;margin-bottom:24px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.card{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e}
+.card .lbl{font-size:11px;text-transform:uppercase;color:#666;letter-spacing:1px}
+.card .val{font-size:28px;font-weight:700;margin-top:4px}
+.card .sval{font-size:12px;color:#888;margin-top:2px}
+.cyan{color:#00d4ff}
+.orange{color:#ff6b35}
+.green{color:#00e676}
+.red{color:#ff5252}
+.yellow{color:#ffc107}
+
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:700px){.team-grid{grid-template-columns:1fr}}
+
+.team-card{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e}
+.team-card h3{font-size:14px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #1e1e2e}
+
+.ar{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #0f0f1a}
+.ar:last-child{border-bottom:none}
+.an{font-size:13px;font-weight:500}
+.ac{font-size:15px;font-weight:700}
+.tag{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:6px}
+.tg1{background:#00d4ff22;color:#00d4ff}
+.tg2{background:#ff6b3522;color:#ff6b35}
+
+.pwrap{background:#1e1e2e;border-radius:20px;height:28px;overflow:hidden;margin:12px 0;position:relative}
+.pbar{height:100%;border-radius:20px;background:linear-gradient(90deg,#00d4ff,#ff6b35);transition:width .5s ease}
+.plbl{position:absolute;top:0;left:0;right:0;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+
+.bwrap{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e;margin-bottom:24px}
+.bwrap h3{font-size:14px;margin-bottom:12px}
+
+.h2h{display:flex;align-items:flex-end;gap:8px;height:200px;padding:8px 0 24px;position:relative}
+.h2h-bar{flex:1;border-radius:6px 6px 0 0;position:relative;min-height:4px;transition:height .5s ease}
+.h2h-bar .hlbl{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:11px;color:#aaa;white-space:nowrap}
+.h2h-bar .hval{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:700;color:#fff}
+.b1{background:linear-gradient(180deg,#00d4ff,#0077b6)}
+.b2{background:linear-gradient(180deg,#ff6b35,#c0392b)}
+.b3{background:linear-gradient(180deg,#ff6b35,#c0392b)}
+.b4{background:linear-gradient(180deg,#ff6b35,#c0392b)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+@media(max-width:600px){.g2{grid-template-columns:1fr}}
+
+.acard{background:#13131f;border-radius:12px;padding:16px;border:1px solid #1e1e2e}
+.acard h3{font-size:14px;margin-bottom:8px}
+.al{list-style:none;font-size:12px;color:#aaa}
+.al li{padding:4px 0 4px 16px;position:relative}
+.al li::before{content:'›';position:absolute;left:0;color:#ff6b35;font-weight:700}
+
+.donut-wrap{position:relative;width:200px;height:200px;margin:0 auto}
+.donut-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-center .dcv{font-size:24px;font-weight:700}
+.donut-center .dcl{font-size:10px;color:#888}
+
+.donut-legend{display:flex;justify-content:center;gap:20px;margin-top:12px;font-size:12px}
+.dl-item{display:flex;align-items:center;gap:6px}
+.dl-dot{width:10px;height:10px;border-radius:50%}
+
+.footer{text-align:center;font-size:11px;color:#444;padding:20px 0}
+</style>
+</head>
+<body>
+
+<h1>🏠 Kuantan Team Dashboard</h1>
+<div class="sub">AFZ Realty — Team Azri vs Aien • Auto-update setiap 3 hari via cron</div>
+
+<div class="cards" id="cards">
+  <div class="card">
+    <div class="lbl">Team Azri Total</div>
+    <div class="val cyan" id="tAzri">193</div>
+    <div class="sval">6 agent</div>
+  </div>
+  <div class="card">
+    <div class="lbl">Team Aien Total</div>
+    <div class="val orange" id="tAien">545</div>
+    <div class="sval">3 agent</div>
+  </div>
+  <div class="card">
+    <div class="lbl">Gap</div>
+    <div class="val red" id="tGap">-352</div>
+    <div class="sval">perlu catch up</div>
+  </div>
+  <div class="card">
+    <div class="lbl">Reski Progress</div>
+    <div class="val green" id="tProg">64%</div>
+    <div class="sval"><span id="tReski">128</span> / 200 target 🎯</div>
+  </div>
+</div>
+
+<div class="pwrap">
+  <div class="pbar" id="progBar" style="width:64%"></div>
+  <div class="plbl">Reski: 128 → 200 🎯</div>
+</div>
+
+<div class="team-grid">
+  <div class="team-card">
+    <h3>🚀 Team Azri (Kuantan)</h3>
+    <div id="azriList"></div>
+  </div>
+  <div class="team-card">
+    <h3>🏁 Team Aien (Pahang)</h3>
+    <div id="aienList"></div>
+  </div>
+</div>
+
+<div class="bwrap">
+  <h3>📊 Head to Head — Top Agent</h3>
+  <div class="h2h" id="h2h"></div>
+</div>
+
+<div class="bwrap">
+  <h3>📈 Team Market Share</h3>
+  <div class="donut-wrap" id="donutWrap">
+    <svg id="donutSvg" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#1e1e2e" stroke-width="12"/>
+      <circle id="donutA" cx="50" cy="50" r="40" fill="none" stroke="#00d4ff" stroke-width="12" stroke-dasharray="0 251.2" stroke-linecap="butt"/>
+      <circle id="donutB" cx="50" cy="50" r="40" fill="none" stroke="#ff6b35" stroke-width="12" stroke-dasharray="0 251.2" stroke-linecap="butt" transform="rotate(0 50 50)"/>
+    </svg>
+    <div class="donut-center">
+      <div class="dcv" id="donutTotal">738</div>
+      <div class="dcl">total iklan</div>
+    </div>
+  </div>
+  <div class="donut-legend">
+    <div class="dl-item"><div class="dl-dot" style="background:#00d4ff"></div> Team Azri <span id="dlAzri" style="color:#00d4ff;font-weight:700">193</span></div>
+    <div class="dl-item"><div class="dl-dot" style="background:#ff6b35"></div> Team Aien <span id="dlAien" style="color:#ff6b35;font-weight:700">545</span></div>
+  </div>
+</div>
+
+<div class="g2">
+  <div class="acard">
+    <h3>🎯 Target Reski</h3>
+    <ul class="al">
+      <li>128 → 200 iklan (+72) — modal RM500</li>
+      <li>4-6 booking/bln → RM2,600-3,900 net</li>
+      <li>Claim komisen tinggi setiap bulan ✅</li>
+      <li>Tukar region Perak → Pahang</li>
+    </ul>
+  </div>
+  <div class="acard">
+    <h3>📈 Projection 2027</h3>
+    <ul class="al">
+      <li>Reski TL: 75% own + 15% override</li>
+      <li>Azri: 13% semua deal</li>
+      <li>Funnel: RM10 → RM50 → RM250 per agent</li>
+      <li>Target: 2 ejen baru Q1 2027</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  AFZ Realty — Team Azri • Cron update setiap 3 hari • Data terkini: <span id="lastUpd">-</span>
+</div>
+
+<script>
+(function(){
+  var D = {
+    team: { Reski: 128, Atikah: 33, Adawiyah: 16, "Nurul Aida": 35, "Cik Embun": 16 },
+    aien: { Aien: 96, zizi: 261, zuhana: 188 }
+  };
+  var TARGET = 200;
+  var MAX_BAR = 300;
+
+  function render() {
+    var tTot = 0; for(var k in D.team) tTot += D.team[k];
+    var aTot = 0; for(var k in D.aien) aTot += D.aien[k];
+    var r = D.team.Reski;
+    var pct = Math.min(100, Math.round(r / TARGET * 100));
+    var gap = tTot - aTot;
+
+    // Cards
+    document.getElementById('tAzri').textContent = tTot;
+    document.getElementById('tAien').textContent = aTot;
+    var gEl = document.getElementById('tGap');
+    gEl.textContent = gap < 0 ? '' + gap : '+' + gap;
+    gEl.className = 'val ' + (gap < 0 ? 'red' : 'green');
+    document.getElementById('tProg').textContent = pct + '%';
+    document.getElementById('tReski').textContent = r;
+    document.getElementById('progBar').style.width = pct + '%';
+
+    // Team lists
+    var azriHtml = '';
+    for(var k in D.team) {
+      var tag = k === 'Reski' ? ' <span class="tag tg1">TL</span>' : '';
+      azriHtml += '<div class="ar"><span><span class="an">' + k + '</span>' + tag + '</span><span class="ac cyan">' + D.team[k] + '</span></div>';
+    }
+    document.getElementById('azriList').innerHTML = azriHtml;
+
+    var aienHtml = '';
+    for(var k in D.aien) {
+      var tag = k === 'Aien' ? ' <span class="tag tg2">Leader</span>' : '';
+      aienHtml += '<div class="ar"><span><span class="an">' + k + '</span>' + tag + '</span><span class="ac orange">' + D.aien[k] + '</span></div>';
+    }
+    document.getElementById('aienList').innerHTML = aienHtml;
+
+    // Bar chart
+    var agents = [
+      {name:'Reski',val:r,cls:'b1'},
+      {name:'zizi',val:D.aien.zizi,cls:'b2'},
+      {name:'zuhana',val:D.aien.zuhana,cls:'b3'},
+      {name:'Aien',val:D.aien.Aien,cls:'b4'}
+    ];
+    var maxVal = Math.max.apply(null, agents.map(function(a){return a.val}));
+    maxVal = Math.max(maxVal, 10);
+    var barHtml = '';
+    for(var i=0;i<agents.length;i++) {
+      var h = Math.max(4, Math.round(agents[i].val / maxVal * 168));
+      var col = i === 0 ? '#00d4ff' : '#ff6b35';
+      barHtml += '<div class="h2h-bar ' + agents[i].cls + '" style="height:' + h + 'px;background:linear-gradient(180deg,' + col + ',' + (i===0?'#0077b6':'#c0392b') + ')">';
+      barHtml += '<div class="hval">' + agents[i].val + '</div>';
+      barHtml += '<div class="hlbl">' + agents[i].name + '</div></div>';
+    }
+    document.getElementById('h2h').innerHTML = barHtml;
+
+    // Donut chart (SVG)
+    var total = tTot + aTot;
+    document.getElementById('donutTotal').textContent = total;
+    document.getElementById('dlAzri').textContent = tTot;
+    document.getElementById('dlAien').textContent = aTot;
+
+    var circ = 2 * Math.PI * 40; // 251.327
+    var aShare = tTot / total;
+    var bShare = aTot / total;
+    var aLen = Math.round(aShare * circ);
+    var bLen = Math.round(bShare * circ);
+
+    document.getElementById('donutA').setAttribute('stroke-dasharray', aLen + ' ' + circ);
+    document.getElementById('donutB').setAttribute('stroke-dasharray', bLen + ' ' + circ);
+    document.getElementById('donutB').setAttribute('transform', 'rotate(' + (aShare * 360) + ' 50 50)');
+
+    document.getElementById('lastUpd').textContent = new Date().toLocaleDateString('ms-MY',{day:'numeric',month:'short',year:'numeric'});
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

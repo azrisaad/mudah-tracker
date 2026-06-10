@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tracker 200 — AFZ Realty</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0f;color:#e0e0e0;padding:14px;max-width:640px;margin:auto;min-height:100vh}
+
+h1{font-size:20px;font-weight:800;text-align:center;background:linear-gradient(135deg,#00d4ff,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px}
+.sub{text-align:center;color:#888;font-size:11px;margin-bottom:14px}
+
+/* TOP STATS */
+.c5{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.c5i{background:#13131f;border-radius:10px;padding:8px 4px;text-align:center;border:1px solid #1e1e2e}
+.c5i .cv{font-size:16px;font-weight:700}
+.c5i .cl{font-size:8px;color:#888;text-transform:uppercase;letter-spacing:.3px;margin-top:1px}
+
+/* BIG PROGRESS */
+.bigp{background:#13131f;border-radius:14px;padding:16px;border:1px solid #1e1e2e;margin-bottom:12px;text-align:center}
+.bigp .bpnum{font-size:44px;font-weight:800;background:linear-gradient(135deg,#00d4ff,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.bigp .bplbl{font-size:11px;color:#888;margin-top:3px}
+.bigp .bpbar{height:10px;background:#1e1e2e;border-radius:20px;overflow:hidden;margin:10px 0 4px}
+.bigp .bpfill{height:100%;border-radius:20px;background:linear-gradient(90deg,#00d4ff,#ff6b35);transition:width .5s;width:0%}
+.bigp .bpsub{font-size:10px;color:#666}
+.bigp .bpsub span{color:#ff6b35;font-weight:600}
+
+/* TODAY CARD - ICONS */
+.today{background:linear-gradient(135deg,#13131f,#1a1a2e);border-radius:14px;padding:14px;border:1px solid #00d4ff33;margin-bottom:12px}
+.today h3{font-size:12px;color:#00d4ff;margin-bottom:8px}
+.today .row4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.today .ic-cell{background:#1e1e2e;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all .2s;user-select:none}
+.today .ic-cell:active{transform:scale(.95)}
+.today .ic-cell .ic-icon{font-size:20px;display:block;margin-bottom:2px}
+.today .ic-cell .ic-lbl{font-size:8px;color:#888}
+.today .ic-cell.done{background:#00e67622;border-color:#00e676}
+.today .ic-cell.done .ic-lbl{color:#00e676}
+
+/* INPUT ROW */
+.inp-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.inp-grp{background:#1e1e2e;border-radius:10px;padding:10px;text-align:center}
+.inp-grp .ilbl{font-size:9px;color:#888;margin-bottom:4px}
+.inp-grp .ictrl{display:flex;align-items:center;justify-content:center;gap:8px}
+.inp-grp .ictrl button{width:28px;height:28px;border-radius:50%;border:none;font-size:16px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.inp-grp .ictrl button:active{transform:scale(.9)}
+.inp-grp .ictrl .btn-minus{background:#ff525222;color:#ff5252}
+.inp-grp .ictrl .btn-plus{background:#00e67622;color:#00e676}
+.inp-grp .ictrl .ival{font-size:20px;font-weight:700;min-width:28px;text-align:center}
+.inp-grp .isub{font-size:10px;color:#666;margin-top:3px}
+.clr-view{color:#00d4ff}
+.clr-book{color:#ff6b35}
+.clr-comm{color:#00e676}
+
+/* MONTHLY SUMMARY */
+.msumm{background:#13131f;border-radius:14px;padding:14px;border:1px solid #1e1e2e;margin-bottom:12px}
+.msumm h3{font-size:12px;margin-bottom:8px}
+.msumm .mrow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:12px;border-bottom:1px solid #0f0f1a}
+.msumm .mrow:last-child{border-bottom:none}
+.msumm .mrow .ml{color:#888}
+.msumm .mrow .mv{font-weight:600}
+
+/* PERIOD */
+.period{display:flex;gap:6px;margin-bottom:12px}
+.period button{flex:1;padding:7px;border-radius:8px;border:1px solid #1e1e2e;background:#13131f;color:#888;font-size:10px;cursor:pointer;transition:all .2s}
+.period button.actv{background:#00d4ff22;border-color:#00d4ff44;color:#00d4ff;font-weight:600}
+
+/* CALENDAR */
+.cal{background:#13131f;border-radius:14px;padding:14px;border:1px solid #1e1e2e;margin-bottom:12px}
+.cal h3{font-size:12px;margin-bottom:8px;display:flex;justify-content:space-between}
+.cal h3 span{font-size:10px;color:#888;font-weight:400}
+.cal-list{max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#1e1e2e transparent}
+.cal-item{display:flex;align-items:center;padding:7px 0;border-bottom:1px solid #0f0f1a;font-size:12px;cursor:pointer}
+.cal-item:last-child{border-bottom:none}
+.cal-item .cd{color:#888;font-size:10px;width:72px;flex-shrink:0}
+.cal-item .cs{display:flex;gap:2px;flex:1;justify-content:center}
+.cal-item .cs .dot{width:12px;height:12px;border-radius:50%;background:#1e1e2e;border:1px solid #333}
+.cal-item .cs .dot.filled{background:#00e676;border-color:#00e676}
+.cal-item .ci{display:flex;gap:8px;font-size:10px;color:#888;width:80px;justify-content:flex-end}
+.cal-item .ci .ci-v{font-weight:600}
+.cal-item .ci .ci-v.vw{color:#00d4ff}
+.cal-item .ci .ci-v.bk{color:#ff6b35}
+
+/* MOTIV */
+.motiv{background:linear-gradient(135deg,#13131f,#1a1a2e);border-radius:12px;padding:12px;border:1px solid #ff6b3544;margin-bottom:12px;text-align:center}
+.motiv .mq{font-size:18px;margin-bottom:2px}
+.motiv .mt{font-size:12px;color:#aaa;line-height:1.4}
+.motiv .ms{font-size:9px;color:#555;margin-top:3px}
+
+.wa-wrap{text-align:center;margin-bottom:12px}
+.wa-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;text-decoration:none;padding:10px 22px;border-radius:50px;font-size:13px;font-weight:700;box-shadow:0 4px 16px rgba(37,211,102,.25)}
+.wa-btn:active{transform:scale(.97)}
+.wa-btn svg{width:18px;height:18px;fill:#fff}
+
+.reset-wrap{text-align:center;margin-bottom:12px}
+.reset-btn{background:none;border:1px solid #ff525244;color:#ff525288;padding:5px 12px;border-radius:6px;font-size:9px;cursor:pointer}
+
+.footer{text-align:center;padding:8px 0;font-size:9px;color:#333}
+</style>
+</head>
+<body>
+
+<h1>🚀 Tracker 200</h1>
+<div class="sub">AFZ Realty — 4 iklan/hari • 200 iklan/60 hari</div>
+
+<!-- C5 STATS -->
+<div class="c5" id="topStats"></div>
+
+<!-- BIG PROGRESS -->
+<div class="bigp">
+  <div class="bpnum" id="totalDone">0</div>
+  <div class="bplbl">IKLAN DIPOST</div>
+  <div class="bpbar"><div class="bpfill" id="mainBar"></div></div>
+  <div class="bpsub"><span id="remainDays">60</span> hari lagi • target <span id="totalTarget">200</span></div>
+</div>
+
+<!-- TODAY -->
+<div class="today">
+  <h3>📌 <span id="todayLabel">Hari Ini</span></h3>
+  <div class="row4" id="todayIcons"></div>
+  <div class="inp-row">
+    <div class="inp-grp">
+      <div class="ilbl">👁 Viewing</div>
+      <div class="ictrl">
+        <button class="btn-minus" data-t="view">−</button>
+        <span class="ival clr-view" id="tvView">0</span>
+        <button class="btn-plus" data-t="view">+</button>
+      </div>
+      <div class="isub">hari ini</div>
+    </div>
+    <div class="inp-grp">
+      <div class="ilbl">📝 Booking</div>
+      <div class="ictrl">
+        <button class="btn-minus" data-t="book">−</button>
+        <span class="ival clr-book" id="tvBook">0</span>
+        <button class="btn-plus" data-t="book">+</button>
+      </div>
+      <div class="isub">hari ini</div>
+    </div>
+    <div class="inp-grp">
+      <div class="ilbl">💰 Komisen</div>
+      <div class="ictrl">
+        <button class="btn-minus" data-t="comm">−</button>
+        <span class="ival clr-comm" id="tvComm">0</span>
+        <button class="btn-plus" data-t="comm">+</button>
+      </div>
+      <div class="isub">RM ribu</div>
+    </div>
+  </div>
+</div>
+
+<!-- MONTHLY SUMMARY -->
+<div class="msumm" id="monthlySummary"></div>
+
+<!-- PERIOD -->
+<div class="period" id="periodBtns"></div>
+
+<!-- CALENDAR -->
+<div class="cal">
+  <h3>📅 Activity Log <span>tekan baris untuk update</span></h3>
+  <div class="cal-list" id="dayList"></div>
+</div>
+
+<!-- MOTIV -->
+<div class="motiv" id="motivBox"></div>
+
+<!-- WHATSAPP -->
+<div class="wa-wrap">
+  <a class="wa-btn" href="https://wa.me/601163364664?text=Azri%2C+saya+nak+tanya+pasal+tracker" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp Azri
+  </a>
+</div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" id="resetBtn">↺ Reset Data</button>
+</div>
+
+<div class="footer">AFZ Realty — Team Azri • 011-63364664</div>
+
+<script>
+(function(){
+  var TARGET = 200;
+  var DAILY_GOAL = 4;
+
+  var QUOTES = [
+    {q:"💪", t:"4 iklan sehari. Bukan 10, bukan 20. Cuma 4. Boleh? Boleh."},
+    {q:"🔥", t:"Modal iklan RM880/bln. Satu booking RM4,000+ dah balik modal 5x."},
+    {q:"🎯", t:"0 ke 200 iklan dalam 60 hari. Bukan bakat, tapi konsistensi."},
+    {q:"📊", t:"Formula ni proven 5 tahun. Jangan ubah. Just execute."},
+    {q:"💎", t:"Setiap iklan kau post hari ni, mungkin jadi booking bulan depan."},
+    {q:"🚀", t:"Ejen lain tunggu rezeki. Kau cipta rezeki 4 iklan sehari."},
+    {q:"⚡", t:"Malas? Post 1 dulu. Lepas tu 1 lagi. Lepas tu habiskan."},
+    {q:"🏆", t:"4 iklan × 60 hari berturut-turut = ranking tinggi. Period."},
+    {q:"👁", t:"Viewing hari ni = booking esok. Setiap viewing ada potensi."},
+    {q:"💰", t:"1 booking RM4k. 6 booking/bln = RM24k. Target tu real."}
+  ];
+
+  var KEY = 'afz_tracker_v2';
+  var data = loadData();
+
+  function getDefaultData() {
+    var d = {};
+    var today = new Date(); today.setHours(0,0,0,0);
+    for(var i=0;i<90;i++) {
+      var dt = new Date(today);
+      dt.setDate(dt.getDate() - i);
+      d[ds(dt)] = {iklan:0, view:0, book:0, comm:0};
+    }
+    return d;
+  }
+
+  function ds(d) {
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+
+  function loadData() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if(raw) {
+        var p = JSON.parse(raw);
+        var today = new Date(); today.setHours(0,0,0,0);
+        for(var i=0;i<3;i++) {
+          var d = new Date(today); d.setDate(d.getDate()-i);
+          var k = ds(d);
+          if(!p[k]) p[k] = {iklan:0, view:0, book:0, comm:0};
+        }
+        return p;
+      }
+    } catch(e){}
+    return getDefaultData();
+  }
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){} }
+
+  function todayKey() { var d=new Date(); d.setHours(0,0,0); return ds(d); }
+
+  function getDay(key) {
+    if(!data[key]) data[key] = {iklan:0, view:0, book:0, comm:0};
+    return data[key];
+  }
+
+  // totals over last N days
+  function totalLast(n, field) {
+    var t = 0;
+    var today = new Date(); today.setHours(0,0,0,0);
+    for(var i=0;i<n;i++) {
+      var d = new Date(today); d.setDate(d.getDate()-i);
+      var day = data[ds(d)];
+      if(day) t += (day[field]||0);
+    }
+    return t;
+  }
+
+  function sumField(field) { return totalLast(60, field); }
+
+  function getStreak() {
+    var s = 0;
+    var today = new Date(); today.setHours(0,0,0,0);
+    for(var i=0;i<90;i++) {
+      var d = new Date(today); d.setDate(d.getDate()-i);
+      var day = data[ds(d)];
+      if(day && (day.iklan||0) >= DAILY_GOAL) s++; else break;
+    }
+    return s;
+  }
+
+  function getDaysActive() {
+    var c = 0;
+    var today = new Date(); today.setHours(0,0,0,0);
+    for(var i=0;i<60;i++) {
+      var d = new Date(today); d.setDate(d.getDate()-i);
+      var day = data[ds(d)];
+      if(day && (day.iklan||0) > 0) c++;
+    }
+    return c;
+  }
+
+  function getTotalIklan() {
+    var t = 0;
+    var today = new Date(); today.setHours(0,0,0,0);
+    for(var i=0;i<60;i++) {
+      var d = new Date(today); d.setDate(d.getDate()-i);
+      var day = data[ds(d)];
+      if(day) t += (day.iklan||0);
+    }
+    return t;
+  }
+
+  // monthly summary
+  function getMonthData() {
+    var now = new Date();
+    var m = now.getMonth();
+    var y = now.getFullYear();
+    var iklan=0, view=0, book=0, comm=0, days=0;
+    for(var k in data) {
+      var parts = k.split('-');
+      var ym = parseInt(parts[0])*12 + parseInt(parts[1]) - 1;
+      if(parseInt(parts[0])===y && parseInt(parts[1])-1===m) {
+        var d = data[k];
+        iklan += d.iklan||0;
+        view += d.view||0;
+        book += d.book||0;
+        comm += d.comm||0;
+        if((d.iklan||0)>0) days++;
+      }
+    }
+    return {iklan:iklan, view:view, book:book, comm:comm, days:days};
+  }
+
+  // ===== RENDER =====
+  var period = 0;
+
+  function render() {
+    var tIklan = getTotalIklan();
+    var tView = sumField('view');
+    var tBook = sumField('book');
+    var tComm = sumField('comm');
+    var pct = Math.min(100, Math.round(tIklan/TARGET*100));
+    var tk = todayKey();
+    var td = getDay(tk);
+
+    // top 5 stats
+    document.getElementById('topStats').innerHTML = 
+      '<div class="c5i"><div class="cv" style="color:#ff6b35">'+tIklan+'</div><div class="cl">Iklan</div></div>'+
+      '<div class="c5i"><div class="cv" style="color:#00d4ff">'+tView+'</div><div class="cl">Viewing</div></div>'+
+      '<div class="c5i"><div class="cv" style="color:#ff6b35">'+tBook+'</div><div class="cl">Booking</div></div>'+
+      '<div class="c5i"><div class="cv" style="color:#00e676">RM'+(tComm*1000).toLocaleString()+'</div><div class="cl">Komisen</div></div>'+
+      '<div class="c5i"><div class="cv" style="color:#ffc107">'+getStreak()+'🔥</div><div class="cl">Streak</div></div>';
+
+    // big progress
+    document.getElementById('totalDone').textContent = tIklan;
+    document.getElementById('mainBar').style.width = pct+'%';
+    var remain = Math.max(0, 60 - getDaysActive());
+    document.getElementById('remainDays').textContent = remain;
+    document.getElementById('totalTarget').textContent = TARGET;
+
+    // today label
+    document.getElementById('todayLabel').textContent = formatDate(new Date());
+
+    // today icons (4 iklan)
+    var ih = '';
+    for(var i=1;i<=DAILY_GOAL;i++) {
+      var done = i <= (td.iklan||0);
+      ih += '<div class="ic-cell'+(done?' done':'')+'" data-n="'+i+'"><span class="ic-icon">'+(done?'✅':'◻️')+'</span><span class="ic-lbl">Iklan '+i+'</span></div>';
+    }
+    document.getElementById('todayIcons').innerHTML = ih;
+    document.querySelectorAll('#todayIcons .ic-cell').forEach(function(el){
+      el.onclick = function(){
+        var n = parseInt(this.dataset.n);
+        var cur = data[tk]||{iklan:0,view:0,book:0,comm:0};
+        if((cur.iklan||0) >= n) cur.iklan = n-1;
+        else cur.iklan = n;
+        data[tk] = cur; save(); render();
+      };
+    });
+
+    // today view/book/comm
+    document.getElementById('tvView').textContent = td.view||0;
+    document.getElementById('tvBook').textContent = td.book||0;
+    document.getElementById('tvComm').textContent = td.comm||0;
+
+    // +/- buttons
+    document.querySelectorAll('.ictrl .btn-minus').forEach(function(b){
+      b.onclick = function(){
+        var t = this.dataset.t;
+        var cur = data[tk]||{iklan:0,view:0,book:0,comm:0};
+        cur[t] = Math.max(0, (cur[t]||0) - 1);
+        data[tk] = cur; save(); render();
+      };
+    });
+    document.querySelectorAll('.ictrl .btn-plus').forEach(function(b){
+      b.onclick = function(){
+        var t = this.dataset.t;
+        var cur = data[tk]||{iklan:0,view:0,book:0,comm:0};
+        if(t==='comm') cur[t] = Math.min(999, (cur[t]||0)+1);
+        else cur[t] = (cur[t]||0)+1;
+        data[tk] = cur; save(); render();
+      };
+    });
+
+    // monthly summary
+    var mo = getMonthData();
+    var moNames = ['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogo','Sep','Okt','Nov','Dis'];
+    document.getElementById('monthlySummary').innerHTML =
+      '<h3>📊 Ringkasan Bulan ' + moNames[new Date().getMonth()] + '</h3>'+
+      '<div class="mrow"><span class="ml">Iklan dipost</span><span class="mv" style="color:#ff6b35">'+mo.iklan+'</span></div>'+
+      '<div class="mrow"><span class="ml">👁 Viewing</span><span class="mv" style="color:#00d4ff">'+mo.view+'</span></div>'+
+      '<div class="mrow"><span class="ml">📝 Booking</span><span class="mv" style="color:#ff6b35">'+mo.book+'</span></div>'+
+      '<div class="mrow"><span class="ml">💰 Jumlah Komisen</span><span class="mv" style="color:#00e676">RM'+(mo.comm*1000).toLocaleString()+'</span></div>'+
+      '<div class="mrow"><span class="ml">📅 Hari aktif</span><span class="mv">'+mo.days+'</span></div>';
+
+    // period btns
+    var pdata = [{l:'Semua',v:0},{l:'30 Hari',v:30},{l:'7 Hari',v:7}];
+    document.getElementById('periodBtns').innerHTML = pdata.map(function(p){
+      return '<button class="'+(period===p.v?'actv':'')+'" data-v="'+p.v+'">'+p.l+'</button>';
+    }).join('');
+    document.querySelectorAll('#periodBtns button').forEach(function(b){
+      b.onclick = function(){ period=parseInt(this.dataset.v); render(); };
+    });
+
+    // calendar
+    var range = period || 60;
+    var today = new Date(); today.setHours(0,0,0,0);
+    var items = [];
+    for(var i=0;i<range;i++) {
+      var d = new Date(today); d.setDate(d.getDate()-i);
+      var k = ds(d);
+      items.push({date:d, key:k, day:getDay(k)});
+    }
+    var lh = '';
+    for(var i=0;i<items.length;i++) {
+      var it = items[i];
+      var isT = it.key === tk;
+      var dots = '';
+      for(var j=0;j<DAILY_GOAL;j++) dots += '<div class="dot'+(j<(it.day.iklan||0)?' filled':'')+'"></div>';
+      var dl = isT ? '📌 Hari Ini' : fs(it.date);
+      lh += '<div class="cal-item" data-key="'+it.key+'"><span class="cd">'+dl+'</span><div class="cs">'+dots+'</div><div class="ci"><span class="ci-v vw">'+(it.day.view||0)+'</span><span class="ci-v bk">'+(it.day.book||0)+'</span></div></div>';
+    }
+    document.getElementById('dayList').innerHTML = lh;
+    document.querySelectorAll('#dayList .cal-item').forEach(function(el){
+      el.onclick = function(){
+        var k = this.dataset.key;
+        var d = getDay(k);
+        d.iklan = ((d.iklan||0) >= DAILY_GOAL) ? 0 : ((d.iklan||0)+1);
+        data[k] = d; save(); render();
+      };
+    });
+
+    // motv
+    var doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0))/86400000);
+    var qi = doy % QUOTES.length;
+    var q = QUOTES[qi];
+    document.getElementById('motivBox').innerHTML =
+      '<div class="mq">'+q.q+'</div><div class="mt">'+q.t+'</div><div class="ms">Hari ke-'+(getDaysActive()||1)+'</div>';
+  }
+
+  function formatDate(d) {
+    var days = ['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'];
+    var months = ['Januari','Februari','Mac','April','Mei','Jun','Julai','Ogos','September','Oktober','November','Disember'];
+    return days[d.getDay()]+', '+d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+  }
+
+  function fs(d) {
+    var days=['Ahd','Isn','Sel','Rab','Kha','Jum','Sab'];
+    var months=['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogo','Sep','Okt','Nov','Dis'];
+    return days[d.getDay()]+', '+d.getDate()+' '+months[d.getMonth()];
+  }
+
+  document.getElementById('resetBtn').onclick = function(){
+    if(confirm('Reset semua data tracker?')) { data=getDefaultData(); save(); render(); }
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>
